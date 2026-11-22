@@ -1,26 +1,180 @@
+
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #100d0c;
+  --foreground: #f1e8d9;
+  --burgundy: #641e25;
+  --gold: #c69a52;
+  --cream: #f1e8d9;
+  --muted: #a49a8e;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  background: var(--background);
 }
 
 body {
+  margin: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+ font-family: var(--font-body), Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--background);
+}
+
+.font-display {
+  font-family: var(--font-display), Impact, sans-serif;
+}
+
+.font-mono {
+  font-family: var(--font-mono), monospace;
+}
+
+/* Subtle film grain */
+.film-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  opacity: 0.055;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
+}
+
+/* Intro background */
+.intro-background {
+  background:
+    radial-gradient(
+      ellipse at 50% 45%,
+      rgba(100, 30, 37, 0.35),
+      transparent 65%
+    ),
+    #100d0c;
+}
+
+/* Clapperboard */
+.clapper {
+  width: 180px;
+  height: 105px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.clapper-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 27px;
+  border: 2px solid var(--gold);
+  background: repeating-linear-gradient(
+    135deg,
+    #c69a52 0px,
+    #c69a52 16px,
+    #211916 16px,
+    #211916 32px
+  );
+  transform-origin: left bottom;
+  animation: clap 0.65s 0.35s ease-out both;
+}
+
+.clapper-bottom {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 77px;
+  border: 1px solid rgba(198, 154, 82, 0.7);
+  background: linear-gradient(145deg, #261b17, #100d0c);
+}
+
+.clapper-bottom::after {
+  content: "Let's Cook";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--gold);
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+}
+
+@keyframes clap {
+  0% {
+    transform: rotate(-28deg);
+  }
+  65% {
+    transform: rotate(5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+/* Hero */
+.hero-background {
+  background:
+    radial-gradient(
+      ellipse at 75% 40%,
+      rgba(100, 30, 37, 0.25),
+      transparent 55%
+    ),
+    #100d0c;
+}
+
+.hero-title {
+  font-size: clamp(4rem, 12vw, 10rem);
+  line-height: 0.83;
+  letter-spacing: -0.045em;
+}
+
+.gold-text {
+  color: var(--gold);
+}
+
+.outline-text {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--gold);
+}
+
+/* Cinematic divider */
+.film-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(198, 154, 82, 0.6),
+    transparent
+  );
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
